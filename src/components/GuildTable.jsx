@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -68,6 +68,8 @@ export default function GuildTable({ players, token, update }) {
       case 'spec': {
         return stringCompare(a.active_spec.name, b.active_spec.name, sortDirection)
       }
+      default:   
+        break;
     }
   }
 
@@ -75,7 +77,6 @@ export default function GuildTable({ players, token, update }) {
     return letsCompare(a, b, orderBy, sortDirection);
   }
 
-  characters.sort(compareFunction);
 
   return (
     <TableContainer component={Paper}>
@@ -110,6 +111,7 @@ export default function GuildTable({ players, token, update }) {
         </TableHead>
         <TableBody>
           {characters
+            .sort(compareFunction)
             .map((player, index) => (
               <TableRow
                 key={index}
