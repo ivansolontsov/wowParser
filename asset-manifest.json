@@ -1,7 +1,7 @@
 {
   "main.css": "/wowParser/static/css/main.385f8650.chunk.css",
-  "main.js": "/wowParser/static/js/main.43a5c2e4.chunk.js",
-  "main.js.map": "/wowParser/static/js/main.43a5c2e4.chunk.js.map",
+  "main.js": "/wowParser/static/js/main.3addf217.chunk.js",
+  "main.js.map": "/wowParser/static/js/main.3addf217.chunk.js.map",
   "static/css/1.7b449a23.chunk.css": "/wowParser/static/css/1.7b449a23.chunk.css",
   "static/js/1.e07a898b.chunk.js": "/wowParser/static/js/1.e07a898b.chunk.js",
   "static/js/1.e07a898b.chunk.js.map": "/wowParser/static/js/1.e07a898b.chunk.js.map",
@@ -14,6 +14,6 @@
   "static/css/1.7b449a23.chunk.css.map": "/wowParser/static/css/1.7b449a23.chunk.css.map",
   "static/css/main.385f8650.chunk.css.map": "/wowParser/static/css/main.385f8650.chunk.css.map",
   "index.html": "/wowParser/index.html",
-  "precache-manifest.4f6cf6b60eb1847f180cffaa9c9a4c7a.js": "/wowParser/precache-manifest.4f6cf6b60eb1847f180cffaa9c9a4c7a.js",
+  "precache-manifest.0d700a5674f0d5ce445fc5f7de4a8dce.js": "/wowParser/precache-manifest.0d700a5674f0d5ce445fc5f7de4a8dce.js",
   "service-worker.js": "/wowParser/service-worker.js"
 }
