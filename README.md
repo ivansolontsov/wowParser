@@ -1,6 +1,8 @@
 ## WoW-Parser
 This is an web application that parse guild roster information from WoW armory and get item level for every each guild member.
 
+gh-pages: https://ivansolontsov.github.io/wowParser/
+
 ## Available Scripts
 
 In the project directory, you can run:
