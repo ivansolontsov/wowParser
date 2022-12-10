@@ -35,11 +35,11 @@ function App() {
     <React.Fragment>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Container fixed maxWidth="lg">
+        <Container fixed maxWidth="xl">
           <div className="app__header">
             <h1>Чёрный Лотос</h1>
             {countdown !== 0 && (
-              <span>Cooldown {countdown} sec</span>
+              <span>Update cooldown {countdown} sec</span>
             )}
             <div className="app__header-buttons">
               <IconButton disabled={isButtonDisabled} onClick={() => {

@@ -12,6 +12,18 @@
     height: 100%;
 }
 
+.app__tables {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.app__table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .clickable {
     cursor: pointer;
     transition: all .3s;
@@ -31,7 +43,7 @@
 
 tr:hover {
     opacity: .9;
-    background: rgba(255,255,255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
     cursor: pointer;
 }
 

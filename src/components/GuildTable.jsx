@@ -8,9 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export default function GuildTable({ players, token, update }) {
+export default function GuildTable({ title, players, token, update, rank }) {
 
   const [characters, setCharacters] = React.useState([]);
+  const [altCharacters, setAltCharacters] = React.useState([])
   const [orderBy, setOrderBy] = React.useState('ilvl');
   const [sortDirection, setSortDirection] = React.useState(false);
 
@@ -19,7 +20,7 @@ export default function GuildTable({ players, token, update }) {
     if (token) {
       setCharacters([]);
       players
-        .filter(element => element.rank <= 5 && element.character.level === 70)
+        .filter(element => rank.includes(element.rank) && element.character.level === 70)
         .forEach((player) => {
           let playerName = player.character.name.toLowerCase();
           fetch(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}?namespace=profile-eu&locale=en_US&access_token=${token}`)
@@ -68,7 +69,7 @@ export default function GuildTable({ players, token, update }) {
       case 'spec': {
         return stringCompare(a.active_spec.name, b.active_spec.name, sortDirection)
       }
-      default:   
+      default:
         break;
     }
   }
@@ -77,62 +78,68 @@ export default function GuildTable({ players, token, update }) {
     return letsCompare(a, b, orderBy, sortDirection);
   }
 
-
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={'clickable'} onClick={() => {
-              setOrderBy('name')
-              setSortDirection(!sortDirection)
-            }}>
-              Nickname
-            </TableCell>
-            <TableCell className={'clickable'} align="right" onClick={() => {
-              setOrderBy('spec')
-              setSortDirection(!sortDirection)
-            }}>
-              Spec
-            </TableCell>
-            <TableCell className={'clickable'} align="right" onClick={() => {
-              setOrderBy('class')
-              setSortDirection(!sortDirection)
-            }}>
-              Class
-            </TableCell>
-            <TableCell className={'clickable'} onClick={() => {
-              setOrderBy('ilvl')
-              setSortDirection(!sortDirection)
-            }} align="right">
-              ilvl
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {characters
-            .sort(compareFunction)
-            .map((player, index) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  <strong>{player.name}</strong>
-                </TableCell>
-                <TableCell align="right">
-                  {player.active_spec.name}
-                </TableCell>
-                <TableCell align="right" player-class={`${player.character_class.name}`}> 
-                  <span>{player.character_class.name}</span>
-                </TableCell>
-                <TableCell align="right">
-                  <span className={player.equipped_item_level >= 379 ? 'red' : '' + player.equipped_item_level >= 372 ? 'green' : ''}>{player.equipped_item_level}</span>
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div className="app__table">
+      <h2>{title}</h2>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={'clickable'}
+                onClick={() => {
+                  setOrderBy('name')
+                  setSortDirection(!sortDirection)
+                }}>
+                Nickname
+              </TableCell>
+              <TableCell className={'clickable'} align="right"
+                onClick={() => {
+                  setOrderBy('spec')
+                  setSortDirection(!sortDirection)
+                }}>
+                Spec
+              </TableCell>
+              <TableCell className={'clickable'} align="right"
+                onClick={() => {
+                  setOrderBy('class')
+                  setSortDirection(!sortDirection)
+                }}>
+                Class
+              </TableCell>
+              <TableCell className={'clickable'}
+                onClick={() => {
+                  setOrderBy('ilvl')
+                  setSortDirection(!sortDirection)
+                }} align="right">
+                ilvl
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {characters
+              .sort(compareFunction)
+              .map((player, index) => (
+                <TableRow
+                  key={index}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    <strong>{player.name}</strong>
+                  </TableCell>
+                  <TableCell align="right">
+                    {player.active_spec.name}
+                  </TableCell>
+                  <TableCell align="right" player-class={`${player.character_class.name}`}>
+                    <span>{player.character_class.name}</span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className={player.equipped_item_level >= 379 ? 'red' : '' + player.equipped_item_level >= 372 ? 'green' : ''}>{player.equipped_item_level}</span>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }

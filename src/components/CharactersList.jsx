@@ -14,7 +14,7 @@ export const CharactersList = ({ update }) => {
                 headers: {
                     Authorization:
                         "Basic Y2QwOTE0YzdjYjQ1NDNhNzhiYmVjOWY4OGY1OTU0N2M6bXpUamhHVkc4UnlnUlpsQzY0S3FRS1hhQjFPUWJGcjE=",
-                        "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/x-www-form-urlencoded",
                 },
                 method: "POST"
             })
@@ -38,10 +38,13 @@ export const CharactersList = ({ update }) => {
     }, [token, update])
 
     return (
-        <div>
+        <>
             {guildCharacters.length !== 0 && (
-                <GuildTable players={guildCharacters} token={token} update={update} />
+                <div className='app__tables'>
+                    <GuildTable players={guildCharacters} token={token} update={update} rank={[5, 4, 3, 2, 1, 0]} title={'Main Characters'} />
+                    <GuildTable players={guildCharacters} token={token} update={update} rank={[6]} title={'Alt Characters'} />
+                </div>
             )}
-        </div>
+        </>
     )
 }
