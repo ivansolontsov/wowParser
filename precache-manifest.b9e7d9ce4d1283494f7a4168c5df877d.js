@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "90d4483276e97440b403",
-    "url": "/wowParser/static/css/main.018d7df3.chunk.css"
+    "revision": "dc936cecc2daf8264e50",
+    "url": "/wowParser/static/css/main.a157939d.chunk.css"
   },
   {
-    "revision": "90d4483276e97440b403",
-    "url": "/wowParser/static/js/main.90d44832.chunk.js"
+    "revision": "dc936cecc2daf8264e50",
+    "url": "/wowParser/static/js/main.dc936cec.chunk.js"
   },
   {
-    "revision": "913d0a5de74c45965e19",
-    "url": "/wowParser/static/css/1.8c0a18c4.chunk.css"
+    "revision": "51ca3894bc727fa8f7b3",
+    "url": "/wowParser/static/css/1.795118ed.chunk.css"
   },
   {
-    "revision": "913d0a5de74c45965e19",
-    "url": "/wowParser/static/js/1.913d0a5d.chunk.js"
+    "revision": "51ca3894bc727fa8f7b3",
+    "url": "/wowParser/static/js/1.51ca3894.chunk.js"
   },
   {
     "revision": "54fca63de97d19a64d30",
@@ -22,6 +22,10 @@ self.__precacheManifest = [
   {
     "revision": "d04413353a32aed8a0db452373452870",
     "url": "/wowParser/static/media/roboto-cyrillic-ext-300-normal.d0441335.woff2"
+  },
+  {
+    "revision": "2323284ef85bfeaca074c668b72109c6",
+    "url": "/wowParser/static/media/roboto-all-300-normal.2323284e.woff"
   },
   {
     "revision": "9b9ec29522d1bf8924ccc2d917e1807b",
@@ -36,16 +40,12 @@ self.__precacheManifest = [
     "url": "/wowParser/static/media/roboto-greek-300-normal.dcdaee37.woff2"
   },
   {
-    "revision": "2323284ef85bfeaca074c668b72109c6",
-    "url": "/wowParser/static/media/roboto-all-300-normal.2323284e.woff"
+    "revision": "48c684d99330969e3ce90b9e9da2d698",
+    "url": "/wowParser/static/media/roboto-vietnamese-300-normal.48c684d9.woff2"
   },
   {
     "revision": "716871ec15f054ec158445180fe280e1",
     "url": "/wowParser/static/media/roboto-latin-ext-300-normal.716871ec.woff2"
-  },
-  {
-    "revision": "48c684d99330969e3ce90b9e9da2d698",
-    "url": "/wowParser/static/media/roboto-vietnamese-300-normal.48c684d9.woff2"
   },
   {
     "revision": "b9c29351c46f3e8c8631c4002457f48a",
@@ -56,12 +56,16 @@ self.__precacheManifest = [
     "url": "/wowParser/static/media/roboto-cyrillic-ext-400-normal.c00467dc.woff2"
   },
   {
+    "revision": "d9ac47c7e500fb7083b8d595eaf6fe12",
+    "url": "/wowParser/static/media/roboto-cyrillic-400-normal.d9ac47c7.woff2"
+  },
+  {
     "revision": "62b936e168110e58e89e70ec82e22755",
     "url": "/wowParser/static/media/roboto-all-400-normal.62b936e1.woff"
   },
   {
-    "revision": "d9ac47c7e500fb7083b8d595eaf6fe12",
-    "url": "/wowParser/static/media/roboto-cyrillic-400-normal.d9ac47c7.woff2"
+    "revision": "35de3738b76d249ed060dd3d0f9286be",
+    "url": "/wowParser/static/media/roboto-greek-ext-400-normal.35de3738.woff2"
   },
   {
     "revision": "28668857bef1b85c5748a482cf9b74af",
@@ -72,24 +76,16 @@ self.__precacheManifest = [
     "url": "/wowParser/static/media/roboto-vietnamese-400-normal.ca3b09b6.woff2"
   },
   {
-    "revision": "15d9f621c3bd1599f0169dcf0bd5e63e",
-    "url": "/wowParser/static/media/roboto-latin-400-normal.15d9f621.woff2"
-  },
-  {
-    "revision": "35de3738b76d249ed060dd3d0f9286be",
-    "url": "/wowParser/static/media/roboto-greek-ext-400-normal.35de3738.woff2"
-  },
-  {
     "revision": "87ace20058325aa069320aa4af875dff",
     "url": "/wowParser/static/media/roboto-latin-ext-400-normal.87ace200.woff2"
   },
   {
-    "revision": "2742d81afb69e902e4513dc7cdda0a7f",
-    "url": "/wowParser/static/media/roboto-cyrillic-ext-500-normal.2742d81a.woff2"
+    "revision": "15d9f621c3bd1599f0169dcf0bd5e63e",
+    "url": "/wowParser/static/media/roboto-latin-400-normal.15d9f621.woff2"
   },
   {
-    "revision": "7b08b9e11fc6b8a8a1398b357e874144",
-    "url": "/wowParser/static/media/roboto-cyrillic-500-normal.7b08b9e1.woff2"
+    "revision": "2742d81afb69e902e4513dc7cdda0a7f",
+    "url": "/wowParser/static/media/roboto-cyrillic-ext-500-normal.2742d81a.woff2"
   },
   {
     "revision": "e7b7001dff6c14165abdc0fefdecae06",
@@ -100,12 +96,12 @@ self.__precacheManifest = [
     "url": "/wowParser/static/media/roboto-all-500-normal.68d75d95.woff"
   },
   {
-    "revision": "53f395eb854a40e978706b1082570e42",
-    "url": "/wowParser/static/media/roboto-greek-500-normal.53f395eb.woff2"
+    "revision": "7b08b9e11fc6b8a8a1398b357e874144",
+    "url": "/wowParser/static/media/roboto-cyrillic-500-normal.7b08b9e1.woff2"
   },
   {
-    "revision": "3a44e06eb954b96aa043227f3534189d",
-    "url": "/wowParser/static/media/roboto-latin-500-normal.3a44e06e.woff2"
+    "revision": "53f395eb854a40e978706b1082570e42",
+    "url": "/wowParser/static/media/roboto-greek-500-normal.53f395eb.woff2"
   },
   {
     "revision": "7cda2cfee99d697daf8c14819d9004eb",
@@ -114,6 +110,10 @@ self.__precacheManifest = [
   {
     "revision": "e36fccd06262bef92e7a9841e2202225",
     "url": "/wowParser/static/media/roboto-latin-ext-500-normal.e36fccd0.woff2"
+  },
+  {
+    "revision": "3a44e06eb954b96aa043227f3534189d",
+    "url": "/wowParser/static/media/roboto-latin-500-normal.3a44e06e.woff2"
   },
   {
     "revision": "e0bc9313fdde7851c88c901baf3c2b5c",
@@ -140,15 +140,15 @@ self.__precacheManifest = [
     "url": "/wowParser/static/media/roboto-vietnamese-700-normal.cdaab836.woff2"
   },
   {
-    "revision": "e9f5aaf547f165386cd313b995dddd8e",
-    "url": "/wowParser/static/media/roboto-latin-700-normal.e9f5aaf5.woff2"
-  },
-  {
     "revision": "deb26e9b1a25438118e5d39d741ae6b6",
     "url": "/wowParser/static/media/roboto-latin-ext-700-normal.deb26e9b.woff2"
   },
   {
-    "revision": "2239233a7ef5b41ec98f1872c74812a2",
+    "revision": "e9f5aaf547f165386cd313b995dddd8e",
+    "url": "/wowParser/static/media/roboto-latin-700-normal.e9f5aaf5.woff2"
+  },
+  {
+    "revision": "3ea24ca5e5fabc29e3a458b4d53aa53e",
     "url": "/wowParser/index.html"
   }
 ];
