@@ -1,49 +1,16 @@
-.app__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.app__header-title {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
 .app__header-title h1 {
     margin-bottom: 0px;
-}
-
-.app__table h2 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    grid-gap: 10px;
     gap: 10px;
+    FONT-WEIGHT: 100;
 }
 
-.app__header-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.app__tables {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-}
-
-.app__table {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-
-.average-item-level {
+.app__header-title h1 small {
+    font-weight: normal;
     font-size: 12px;
     background: purple;
     border-radius: 10px;
@@ -55,6 +22,13 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #ffffff1a;
+}
+
+.app__avatar {
+    width: 30px;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #0000002e;
 }
 
 .clickable {
@@ -81,8 +55,9 @@ tr:hover {
 }
 
 th a {
-    color: white;
+    color: #ffffff;
     transition: all .3s;
+    text-decoration: none;
 }
 
 th a:hover {

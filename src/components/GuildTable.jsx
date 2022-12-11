@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,77 +8,117 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-export default function GuildTable({ title, guildCharacters, token, update, rank }) {
-
-
-  // стейт который содержит в себе данные, которые были получены от API профилей персонажей
-  const [characters, setCharacters] = React.useState([{
-    name: '',
-    spec: '',
-    class: '',
-    prof: '',
-    ilvl: '',
-  }]);
-  const [charactersAdvanced, setCharactersAdvanced] = React.useState([{
-    name: '',
-    spec: '',
-    class: '',
-    prof: '',
-    ilvl: '',
-  }]);
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 
+
+export default function GuildTable({ title, guildCharacters, token, update, rank, loadingState, setLoadingState }) {
+
+  // API INFO
+  const [characterProfiles, setCharacterProfiles] = React.useState([]);
+  const [characterProfessions, setCharacterProfessions] = React.useState([]);
+  const [characterAvatars, setCharacterAvatars] = React.useState([]);
+  // API INFO END
   const [orderBy, setOrderBy] = React.useState('ilvl');
   const [sortDirection, setSortDirection] = React.useState(false);
 
-  useEffect(() => {
-    if (token) {
-      setCharacters([]);
-      guildCharacters
-        .filter(element => rank.includes(element.rank) && element.character.level === 70)
-        .forEach((player) => {
-          let playerName = player.character.name.toLowerCase();
-          fetch(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}?namespace=profile-eu&locale=en_US&access_token=${token}`)
-            .then(res => res.json())
-            .then((json) => {
-              setCharacters(prev => [...prev, {
-                name: json.name,
-                spec: json.active_spec.name,
-                class: json.character_class.name,
-                prof: 'No Professions',
-                ilvl: json.equipped_item_level,
-              }]);
-            })
-            .catch(err => console.log(err));
-        });
-    }
-  }, [guildCharacters])
+  const [characters, setCharacters] = React.useState([{
+    id: '',
+    avatar: '',
+    name: '',
+    spec: '',
+    class: '',
+    prof: '',
+    ilvl: '',
+  }]);
 
   useEffect(() => {
-    setCharactersAdvanced([]);
-    characters.forEach((player) => {
-      if (player.name) {
-        let playerName = player.name.toLowerCase();
-        let charactersCopy = [...characters]
-        fetch(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}/professions?namespace=profile-eu&locale=en_US&access_token=${token}`)
-          .then(res => res.json())
-          .then(json => {
-            if (json.primaries) {
-              charactersCopy.find(element => {
-                if (element.name === json.character.name) {
-                  element.prof = json.primaries.map(element => {
-                    return element.profession.name;
-                  }).join(', ')
-                }
-              })
-              setCharactersAdvanced(charactersCopy);
-            }
-          })
-          .catch(err => console.log(err, `error with prof fetch, player's name is ${player.name}`));
+    fetchApplicationData();
+  }, [update])
+
+
+  useEffect(() => {
+    setCharacters([])
+    characterProfiles.map(player => { // заполняем наших персонажей
+      // поля по умолчанию
+      let profession = 'No Professions'
+      let avatar = '';
+
+      // вытягиваем профессию из данных что хранятся в стейте, для текущего плеера, который на данный момент обрабатывается методом map()
+      let professionData = characterProfessions.find(element => {
+        if (element.data.character.id === player.data.id) {
+          return element;
+        }
+      })
+      if (professionData.data.primaries) {
+        professionData = professionData.data.primaries.map(element => element.profession.name).join(', ')
+        profession = professionData;
       }
+      // профессии вытянуты, по умолчанию "Нет Профессий"
+
+      // вытягиваем аватар из данных что хранятся в стейте, для текущего плеера, который на данный момент обрабатывается методом map()
+      let avatarDataForCurrenCharacter = characterAvatars.find(element => {
+        if (element.data.character.id === player.data.id) {
+          return element.data.assets[0].value;
+        }
+      })
+      avatarDataForCurrenCharacter = avatarDataForCurrenCharacter.data.assets[0].value
+      avatar = avatarDataForCurrenCharacter;
+
+      // аватарки вытянуты, по умолчанию пустое поле
+
+
+      setCharacters(prev => [...prev, {
+        id: player.data.id,
+        avatar: avatar,
+        name: player.data.name,
+        spec: player.data.active_spec.name,
+        class: player.data.character_class.name,
+        prof: profession,
+        ilvl: player.data.equipped_item_level,
+      }]);
     })
-  }, [characters])
+  }, [characterProfiles, characterProfessions])
+
+
+  const fetchApplicationData = async () => {
+    setLoadingState(true);
+    try {
+      const profiles = guildCharacters
+        .filter(element => rank.includes(element.rank) && element.character.level === 70)
+        .map((player) => {
+          let playerName = player.character.name.toLowerCase();
+          return axios.get(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}?namespace=profile-eu&locale=en_US&access_token=${token}`)
+        })
+      const professions = guildCharacters
+        .filter(element => rank.includes(element.rank) && element.character.level === 70)
+        .map((player) => {
+          let playerName = player.character.name.toLowerCase();
+          return axios.get(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}/professions?namespace=profile-eu&locale=en_US&access_token=${token}`)
+        })
+      const avatars = guildCharacters
+        .filter(element => rank.includes(element.rank) && element.character.level === 70)
+        .map((player) => {
+          let playerName = player.character.name.toLowerCase();
+          return axios.get(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}/character-media?namespace=profile-eu&locale=en_US&access_token=${token}`)
+        })
+
+      const characterProfiles = await Promise.all(profiles);
+      const charProfs = await Promise.all(professions);
+      const charAvatars = await Promise.all(avatars);
+      setCharacterProfiles(characterProfiles);
+      setCharacterProfessions(charProfs);
+      setCharacterAvatars(charAvatars);
+      console.log(charAvatars);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoadingState(false);
+    }
+  };
 
   const stringCompare = (string1, string2, sortDirection) => {
     if (sortDirection) {
@@ -138,11 +179,20 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
 
   return (
     <div className="app__table">
-      <h2>{title} <span className="average-item-level">{getAverageItemLevel(characters)}</span></h2>
+      <Stack spacing={1} direction="row" alignItems="center">
+        <h2>{title}</h2>
+        <Chip color="secondary" label={getAverageItemLevel(characters)} size="small" />
+      </Stack>  
       <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+        {loadingState && (
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress />
+          </Box>
+        )}
+        <Table size="small" aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell className={'clickable'}
                 onClick={() => {
                   setOrderBy('name')
@@ -181,13 +231,16 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
             </TableRow>
           </TableHead>
           <TableBody>
-            {charactersAdvanced
+            {characters
               .sort(compareFunction)
               .map((player, index) => (
                 <TableRow
                   key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
+                  <TableCell component="th" scope="row">
+                    <img src={`${player.avatar}`} alt={`${player.name} avatar`} className="app__avatar" />
+                  </TableCell>
                   <TableCell component="th" scope="row">
                     <a href={`https://worldofwarcraft.com/ru-ru/character/eu/gordunni/${player.name}`} rel="noopener noreferrer" target="_blank"><strong>{player.name}</strong></a>
                   </TableCell>

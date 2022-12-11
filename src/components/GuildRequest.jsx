@@ -3,10 +3,13 @@ import { useEffect } from 'react';
 import GuildTable from './GuildTable';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import Stack from '@mui/material/Stack';
+
 
 export const GuildRequest = () => {
 
     const [token, setToken] = React.useState()
+    const [loadingState, setLoadingState] = React.useState();
     const [guildCharacters, setGuildCharacters] = React.useState([])
     const [guildInfo, setGuildInfo] = React.useState();
     const [guildName, setGuildName] = React.useState('чёрный-лотос')
@@ -60,14 +63,17 @@ export const GuildRequest = () => {
 
     return (
         <>
-            <div className="app__header">
+            <Stack direction='row' justifyContent="space-between" alignItems="center">
                 {guildCharacters.length !== 0 && (
                     <div className='app__header-title'>
-                        <h1>{guildInfo.guild.name}</h1>
-                        <small>{guildInfo.guild.realm.name}</small>
+                        <h1>
+                            {guildInfo.guild.name} Parser
+                            <small>{guildInfo.guild.realm.name}</small>
+                        </h1>
+
                     </div>
                 )}
-                <div className="app__header-buttons">
+                <Stack direction="row" alignItems="center" justifyContent="flex-end">
                     {countdown !== 0 && (
                         <span>{countdown}</span>
                     )}
@@ -81,13 +87,13 @@ export const GuildRequest = () => {
                     }} color="secondary" aria-label="Update Data">
                         <RefreshIcon />
                     </IconButton>
-                </div>
-            </div>
+                </Stack>
+            </Stack>
             {guildCharacters.length !== 0 && (
-                <div className='app__tables'>
-                    <GuildTable guildCharacters={guildCharacters} token={token} update={update} rank={[5, 4, 3, 2, 1, 0]} title={'Main'} />
-                    <GuildTable guildCharacters={guildCharacters} token={token} update={update} rank={[6]} title={'Alt'} />
-                </div>
+                <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
+                    <GuildTable guildCharacters={guildCharacters} loadingState={loadingState} setLoadingState={setLoadingState} token={token} update={update} rank={[5, 4, 3, 2, 1, 0]} title={'Main'} />
+                    <GuildTable guildCharacters={guildCharacters} loadingState={loadingState} setLoadingState={setLoadingState} token={token} update={update} rank={[6]} title={'Alt'} />
+                </Stack>
             )}
         </>
 
