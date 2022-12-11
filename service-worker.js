@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/wowParser/precache-manifest.3455d085b3394d97e2458a46ee5030a3.js"
+  "/wowParser/precache-manifest.a3dc70e3f37f13d79c8de43f62825723.js"
 );
 
 workbox.clientsClaim();
