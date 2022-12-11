@@ -31,7 +31,7 @@ export default function BasicModal({ isModalOpen, setIsModalOpen, modalData }) {
           {modalData.name} - {modalData.level} Level
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <Link href={modalData.armoryLink} color="inherit">
+          <Link href={modalData.armoryLink} target="_blank"color="inherit">
             Armory
           </Link>
         </Typography>

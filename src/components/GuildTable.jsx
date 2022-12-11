@@ -1,6 +1,12 @@
 import * as React from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+
+// APP COMPONENTS
+import BasicModal from './BasicModal';
+import { GuildCharacter } from './GuildCharacter';
+
+// UI COMPONENTS
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,13 +18,10 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import BasicModal from './BasicModal';
 import Typography from '@mui/material/Typography';
 
 
-
 export default function GuildTable({ title, guildCharacters, token, update, rank, loadingState, setLoadingState }) {
-
   // API INFO
   const [characterProfiles, setCharacterProfiles] = React.useState([]);
   const [characterProfessions, setCharacterProfessions] = React.useState([]);
@@ -32,6 +35,8 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
     name: '',
   }]);
 
+
+  // стейт, который будет содержать информацию о персонажах, что мы получим из API состава гильдии.
   const [characters, setCharacters] = React.useState([{
     num: 0,
     id: '',
@@ -44,13 +49,13 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
     armoryLink: '',
   }]);
 
-  useEffect(() => {
+  useEffect(() => { // по нажатию кнопки, запрашиваем данные с сервера данные поновой
     fetchApplicationData();
   }, [update])
 
   useEffect(() => {
     setCharacters([])
-    characterProfiles.map((player, index) => { // заполняем наших персонажей
+    characterProfiles.map((player, index) => { // проходим 
       // поля по умолчанию
       let profession = [{ name: 'No Professions', min: '', max: '' }]
       let avatar = '';
@@ -122,7 +127,7 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
   const fetchApplicationData = async () => {
     setLoadingState(true);
     try {
-      const profiles = guildCharacters
+      const profiles = guildCharacters // запрашиваем профили(профили персонажа, профессии персонажа, медиафайлы из армори) для персонажей из гильдии с определенным рангом и уровнем
         .filter(element => rank.includes(element.rank) && element.character.level === 70)
         .map((player) => {
           let playerName = player.character.name.toLowerCase();
@@ -287,39 +292,7 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
             {characters
               .sort(compareFunction)
               .map((player, index) => (
-                < TableRow
-                  key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  onClick={() => handleModalActions(player)}
-                >
-                  <TableCell component="td" scope="row">
-                    <img src={`${player.avatar}`} alt={`${player.name} avatar`} className="app__avatar" />
-                  </TableCell>
-                  <TableCell component="td" scope="row" player-class={`${player.class}`}>
-                    <span>{player.num}. {player.name}</span>
-                  </TableCell>
-                  <TableCell align="right">
-                    {player.spec}
-                  </TableCell>
-                  <TableCell align="right" player-class={`${player.class}`}>
-                    <span>{player.class}</span>
-                  </TableCell>
-                  <TableCell align="right">
-                    {player.prof.map((prof, index) => {
-                      return (
-                        <div key={index}>
-                          <span>
-                            <strong>{prof.name} </strong>
-                            {prof.min !== "" ? `(${prof.min}/${prof.max})` : ``}
-                          </span>
-                        </div>
-                      )
-                    })}
-                  </TableCell>
-                  <TableCell align="right">
-                    <span className={player.ilvl >= 379 ? 'red' : '' + player.ilvl >= 372 ? 'green' : ''}>{player.ilvl}</span>
-                  </TableCell>
-                </TableRow>
+                <GuildCharacter player={player} handleModalActions={handleModalActions} key={index} />
               ))}
           </TableBody>
         </Table>
