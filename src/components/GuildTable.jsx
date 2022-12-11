@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import BasicModal from './BasicModal';
+import Typography from '@mui/material/Typography';
 
 
 
@@ -21,40 +23,69 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
   const [characterProfiles, setCharacterProfiles] = React.useState([]);
   const [characterProfessions, setCharacterProfessions] = React.useState([]);
   const [characterAvatars, setCharacterAvatars] = React.useState([]);
+  const [guildRosterInfo, setGuildRosterInfo] = React.useState(guildCharacters)
   // API INFO END
-  const [orderBy, setOrderBy] = React.useState('ilvl');
+  const [orderBy, setOrderBy] = React.useState('index');
   const [sortDirection, setSortDirection] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [modalData, setModalData] = React.useState([{
+    name: '',
+  }]);
 
   const [characters, setCharacters] = React.useState([{
+    num: 0,
     id: '',
     avatar: '',
     name: '',
     spec: '',
     class: '',
-    prof: '',
+    prof: [{ name: 'No Professions', min: '', max: '' }],
     ilvl: '',
+    armoryLink: '',
   }]);
 
   useEffect(() => {
     fetchApplicationData();
   }, [update])
 
-
   useEffect(() => {
     setCharacters([])
-    characterProfiles.map(player => { // заполняем наших персонажей
+    characterProfiles.map((player, index) => { // заполняем наших персонажей
       // поля по умолчанию
-      let profession = 'No Professions'
+      let profession = [{ name: 'No Professions', min: '', max: '' }]
       let avatar = '';
-
       // вытягиваем профессию из данных что хранятся в стейте, для текущего плеера, который на данный момент обрабатывается методом map()
       let professionData = characterProfessions.find(element => {
         if (element.data.character.id === player.data.id) {
           return element;
         }
+        return false;
       })
+
       if (professionData.data.primaries) {
-        professionData = professionData.data.primaries.map(element => element.profession.name).join(', ')
+        professionData = professionData.data.primaries.map(element => {
+          let currentSkillLevel = element.tiers.find(element => {
+            if (element.tier.name.toLowerCase().includes('dragon')) {
+              return element;
+            } else {
+              return false;
+            }
+          });
+          let curPoints = ''
+          let maxPoints = ''
+          if (currentSkillLevel) {
+            curPoints = currentSkillLevel.skill_points
+            maxPoints = currentSkillLevel.max_skill_points
+          }
+
+
+          let objectWithSkillAndLevel = {
+            name: element.profession.name,
+            min: curPoints,
+            max: maxPoints,
+          }
+          return objectWithSkillAndLevel;
+        })
         profession = professionData;
       }
       // профессии вытянуты, по умолчанию "Нет Профессий"
@@ -64,14 +95,15 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
         if (element.data.character.id === player.data.id) {
           return element.data.assets[0].value;
         }
+        return false
       })
       avatarDataForCurrenCharacter = avatarDataForCurrenCharacter.data.assets[0].value
       avatar = avatarDataForCurrenCharacter;
-
       // аватарки вытянуты, по умолчанию пустое поле
 
-
+      // наполняем наш стейт скомпанованной информацией
       setCharacters(prev => [...prev, {
+        num: index + 1,
         id: player.data.id,
         avatar: avatar,
         name: player.data.name,
@@ -79,9 +111,12 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
         class: player.data.character_class.name,
         prof: profession,
         ilvl: player.data.equipped_item_level,
+        level: player.data.level,
+        armoryLink: `https://worldofwarcraft.com/ru-ru/character/eu/gordunni/${player.data.name}`,
       }]);
+      return null;
     })
-  }, [characterProfiles, characterProfessions])
+  }, [characterProfiles])
 
 
   const fetchApplicationData = async () => {
@@ -112,13 +147,17 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
       setCharacterProfiles(characterProfiles);
       setCharacterProfessions(charProfs);
       setCharacterAvatars(charAvatars);
-      console.log(charAvatars);
     } catch (error) {
       console.log(error)
     } finally {
       setLoadingState(false);
     }
   };
+
+  const handleModalActions = (player) => {
+    setIsModalOpen(true);
+    setModalData(player);
+  }
 
   const stringCompare = (string1, string2, sortDirection) => {
     if (sortDirection) {
@@ -143,6 +182,9 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
 
   const letsCompare = (a, b, orderBy, sortDirection) => {
     switch (orderBy) {
+      case 'index': {
+        return numberCompare(a.num, b.num, !sortDirection)
+      }
       case 'ilvl': {
         return numberCompare(a.ilvl, b.ilvl, sortDirection)
       }
@@ -168,31 +210,42 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
   }
 
   const getAverageItemLevel = (array) => {
-    const initialValue = 0;
+    let avIlvl = 0;
     const sumWithInitial = array.reduce(
       (total, currentValue) => total + currentValue.ilvl,
-      initialValue
+      avIlvl
     )
-    let avIlvl = sumWithInitial / array.length
+    if (array.length > 0) {
+      avIlvl = sumWithInitial / array.length
+    }
     return avIlvl.toFixed(2);
   }
 
   return (
-    <div className="app__table">
-      <Stack spacing={1} direction="row" alignItems="center">
-        <h2>{title}</h2>
-        <Chip color="secondary" label={getAverageItemLevel(characters)} size="small" />
-      </Stack>  
+    <>
+      <BasicModal modalData={modalData} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       <TableContainer component={Paper}>
         {loadingState && (
           <Box sx={{ width: '100%' }}>
             <LinearProgress />
           </Box>
         )}
+        <Stack padding={1} direction="row" alignItems="center" justifyContent={'space-between'}>
+          <Typography variant="h6" component="h2">
+            {title}
+          </Typography>
+          <Chip color="secondary" label={getAverageItemLevel(characters)} size="small" />
+        </Stack>
         <Table size="small" aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell className={'clickable'}
+                onClick={() => {
+                  setOrderBy('index')
+                  setSortDirection(!sortDirection)
+                }}>
+                #
+              </TableCell>
               <TableCell className={'clickable'}
                 onClick={() => {
                   setOrderBy('name')
@@ -234,15 +287,16 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
             {characters
               .sort(compareFunction)
               .map((player, index) => (
-                <TableRow
+                < TableRow
                   key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  onClick={() => handleModalActions(player)}
                 >
-                  <TableCell component="th" scope="row">
+                  <TableCell component="td" scope="row">
                     <img src={`${player.avatar}`} alt={`${player.name} avatar`} className="app__avatar" />
                   </TableCell>
-                  <TableCell component="th" scope="row">
-                    <a href={`https://worldofwarcraft.com/ru-ru/character/eu/gordunni/${player.name}`} rel="noopener noreferrer" target="_blank"><strong>{player.name}</strong></a>
+                  <TableCell component="td" scope="row" player-class={`${player.class}`}>
+                    <span>{player.num}. {player.name}</span>
                   </TableCell>
                   <TableCell align="right">
                     {player.spec}
@@ -251,7 +305,16 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
                     <span>{player.class}</span>
                   </TableCell>
                   <TableCell align="right">
-                    {player.prof}
+                    {player.prof.map((prof, index) => {
+                      return (
+                        <div key={index}>
+                          <span>
+                            <strong>{prof.name} </strong>
+                            {prof.min !== "" ? `(${prof.min}/${prof.max})` : ``}
+                          </span>
+                        </div>
+                      )
+                    })}
                   </TableCell>
                   <TableCell align="right">
                     <span className={player.ilvl >= 379 ? 'red' : '' + player.ilvl >= 372 ? 'green' : ''}>{player.ilvl}</span>
@@ -261,6 +324,6 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </>
   );
 }

@@ -1,29 +1,3 @@
-.app__header-title h1 {
-    margin-bottom: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    grid-gap: 10px;
-    gap: 10px;
-    FONT-WEIGHT: 100;
-}
-
-.app__header-title h1 small {
-    font-weight: normal;
-    font-size: 12px;
-    background: purple;
-    border-radius: 10px;
-    padding: 3px 10px;
-    max-height: 20px;
-    box-shadow: 0 0 20px #80008078;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ffffff1a;
-}
-
 .app__avatar {
     width: 30px;
     height: auto;
@@ -54,73 +28,63 @@ tr:hover {
     cursor: pointer;
 }
 
-th a {
-    color: #ffffff;
-    transition: all .3s;
+td[player-class] a {
     text-decoration: none;
 }
 
-th a:hover {
-    opacity: .5;
+td[player-class] a:hover span {
     text-decoration: none;
-}
-
-td[player-class] span {
-    padding: 1px 5px;
-    border-radius: 3px;
+    color: white;
 }
 
 td[player-class*='Warlock'] span {
-    background: #8788EE;
+    color: #8788EE;
 }
 
 td[player-class*='Death'] span {
-    background: #C41E3A;
+    color: #C41E3A;
 }
 
 td[player-class*='Druid'] span {
-    background: #FF7C0A;
+    color: #FF7C0A;
 }
 
 td[player-class*='Mage'] span {
-    background: #3FC7EB;
+    color: #3FC7EB;
 }
 
 td[player-class*='Warrior'] span {
-    background: #C69B6D;
+    color: #C69B6D;
 }
 
 td[player-class*='Evoker'] span {
-    background: #33937F;
+    color: #33937F;
 }
 
 td[player-class*='Demon'] span {
-    background: #A330C9;
+    color: #A330C9;
 }
 
 td[player-class*='Paladin'] span {
-    background: #F48CBA;
+    color: #F48CBA;
 }
 
 td[player-class*='Priest'] span {
-    background: #fff;
-    color: #222;
+    color: #fff;
 }
 
 td[player-class*='Monk'] span {
-    background: #00FF98;
+    color: #00FF98;
 }
 
 td[player-class*='Shaman'] span {
-    background: #0070DD;
+    color: #0070DD;
 }
 
 td[player-class*='Rogue'] span {
-    background: #FFF468;
-    color: #222;
+    color: #FFF468;
 }
 
 td[player-class='Hunter'] span {
-    background: #AAD372;
-    color: #222;
+    color: #AAD372;
 }

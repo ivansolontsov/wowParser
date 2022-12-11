@@ -4,6 +4,7 @@ import GuildTable from './GuildTable';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 
 export const GuildRequest = () => {
@@ -65,13 +66,9 @@ export const GuildRequest = () => {
         <>
             <Stack direction='row' justifyContent="space-between" alignItems="center">
                 {guildCharacters.length !== 0 && (
-                    <div className='app__header-title'>
-                        <h1>
-                            {guildInfo.guild.name} Parser
-                            <small>{guildInfo.guild.realm.name}</small>
-                        </h1>
-
-                    </div>
+                    <Typography variant="h3" component="h1">
+                        {guildInfo.guild.name}
+                    </Typography>
                 )}
                 <Stack direction="row" alignItems="center" justifyContent="flex-end">
                     {countdown !== 0 && (
@@ -90,9 +87,9 @@ export const GuildRequest = () => {
                 </Stack>
             </Stack>
             {guildCharacters.length !== 0 && (
-                <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
-                    <GuildTable guildCharacters={guildCharacters} loadingState={loadingState} setLoadingState={setLoadingState} token={token} update={update} rank={[5, 4, 3, 2, 1, 0]} title={'Main'} />
-                    <GuildTable guildCharacters={guildCharacters} loadingState={loadingState} setLoadingState={setLoadingState} token={token} update={update} rank={[6]} title={'Alt'} />
+                <Stack spacing={2.5} direction={{ md: 'column', lg: 'row' }} mt={5} mb={5}>
+                    <GuildTable styles={{ width: '100%' }} guildCharacters={guildCharacters} loadingState={loadingState} setLoadingState={setLoadingState} token={token} update={update} rank={[5, 4, 3, 2, 1, 0]} title={'Main'} />
+                    <GuildTable styles={{ width: '100%' }} guildCharacters={guildCharacters} loadingState={loadingState} setLoadingState={setLoadingState} token={token} update={update} rank={[6]} title={'Alt'} />
                 </Stack>
             )}
         </>
