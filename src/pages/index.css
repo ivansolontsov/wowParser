@@ -5,6 +5,24 @@
     align-items: center;
 }
 
+.app__header-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.app__header-title h1 {
+    margin-bottom: 0px;
+}
+
+.app__table h2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
 .app__header-buttons {
     display: flex;
     align-items: center;
@@ -22,6 +40,21 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+
+
+.average-item-level {
+    font-size: 12px;
+    background: purple;
+    border-radius: 10px;
+    padding: 3px 10px;
+    max-height: 20px;
+    box-shadow: 0 0 20px #80008078;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ffffff1a;
 }
 
 .clickable {
@@ -45,6 +78,16 @@ tr:hover {
     opacity: .9;
     background: rgba(255, 255, 255, 0.1);
     cursor: pointer;
+}
+
+th a {
+    color: white;
+    transition: all .3s;
+}
+
+th a:hover {
+    opacity: .5;
+    text-decoration: none;
 }
 
 td[player-class] span {
