@@ -1,7 +1,7 @@
 {
-  "main.css": "/wowParser/static/css/main.7b7d58f1.chunk.css",
-  "main.js": "/wowParser/static/js/main.07303f7c.chunk.js",
-  "main.js.map": "/wowParser/static/js/main.07303f7c.chunk.js.map",
+  "main.css": "/wowParser/static/css/main.e3f1e249.chunk.css",
+  "main.js": "/wowParser/static/js/main.6ce81ca1.chunk.js",
+  "main.js.map": "/wowParser/static/js/main.6ce81ca1.chunk.js.map",
   "static/css/1.7b449a23.chunk.css": "/wowParser/static/css/1.7b449a23.chunk.css",
   "static/js/1.e07a898b.chunk.js": "/wowParser/static/js/1.e07a898b.chunk.js",
   "static/js/1.e07a898b.chunk.js.map": "/wowParser/static/js/1.e07a898b.chunk.js.map",
@@ -9,11 +9,11 @@
   "runtime~main.js.map": "/wowParser/static/js/runtime~main.54fca63d.js.map",
   "static/media/300.css": "/wowParser/static/media/roboto-latin-300-normal.b9c29351.woff2",
   "static/media/400.css": "/wowParser/static/media/roboto-latin-400-normal.15d9f621.woff2",
-  "static/media/500.css": "/wowParser/static/media/roboto-latin-500-normal.3a44e06e.woff2",
-  "static/media/700.css": "/wowParser/static/media/roboto-latin-700-normal.e9f5aaf5.woff2",
-  "static/css/main.7b7d58f1.chunk.css.map": "/wowParser/static/css/main.7b7d58f1.chunk.css.map",
+  "static/media/500.css": "/wowParser/static/media/roboto-latin-ext-500-normal.e36fccd0.woff2",
+  "static/media/700.css": "/wowParser/static/media/roboto-latin-ext-700-normal.deb26e9b.woff2",
+  "static/css/main.e3f1e249.chunk.css.map": "/wowParser/static/css/main.e3f1e249.chunk.css.map",
   "static/css/1.7b449a23.chunk.css.map": "/wowParser/static/css/1.7b449a23.chunk.css.map",
   "index.html": "/wowParser/index.html",
-  "precache-manifest.1eaa6177abd29a69096ed1de041640d7.js": "/wowParser/precache-manifest.1eaa6177abd29a69096ed1de041640d7.js",
+  "precache-manifest.3830583e47c2bf0118bb70090e9abb74.js": "/wowParser/precache-manifest.3830583e47c2bf0118bb70090e9abb74.js",
   "service-worker.js": "/wowParser/service-worker.js"
 }
