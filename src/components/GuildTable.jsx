@@ -145,7 +145,6 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
           let playerName = player.character.name.toLowerCase();
           return axios.get(`https://eu.api.blizzard.com/profile/wow/character/gordunni/${playerName}/character-media?namespace=profile-eu&locale=en_US&access_token=${token}`)
         })
-
       const characterProfiles = await Promise.all(profiles);
       const charProfs = await Promise.all(professions);
       const charAvatars = await Promise.all(avatars);
@@ -155,7 +154,7 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
     } catch (error) {
       console.log(error)
     } finally {
-      setLoadingState(false);
+      setLoadingState(false)
     }
   };
 
@@ -183,7 +182,6 @@ export default function GuildTable({ title, guildCharacters, token, update, rank
       return number2 - number1
     }
   }
-
 
   const letsCompare = (a, b, orderBy, sortDirection) => {
     switch (orderBy) {

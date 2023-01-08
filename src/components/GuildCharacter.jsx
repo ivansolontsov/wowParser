@@ -26,7 +26,7 @@ export const GuildCharacter = ({player, handleModalActions}) => {
                         <div key={index}>
                             <span>
                                 <strong>{prof.name} </strong>
-                                {prof.min !== "" ? `(${prof.min}/${prof.max})` : ``}
+                                {prof.min !== "" ? `(${prof.min}/${prof.max})` : `(No DF)`}
                             </span>
                         </div>
                     )
